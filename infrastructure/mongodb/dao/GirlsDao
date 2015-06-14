@@ -1,0 +1,23 @@
+var dbConf = require(../../../conf/MongoDbConfig.js);
+var MongoDbConnection = require(MongoDbConnection.js);
+
+var GirlsDao = function(){
+  this.dbConnection = new MongoDbConnection(
+    dbConf.databases.gamedb,
+    dbConf.collections.girls
+  );
+}
+
+GirlsDao.prototype = {
+  find : function (id){
+    return this.dbConnection.collection.find({id: id});
+  },
+  update : function(data){
+    this.dbConnection.collection.update({id: data.id}, data);
+  },
+  insert : function(data){
+    this.dbConnection.collection.insert(data);
+  }
+}
+
+module.exports = GirlsDao;
